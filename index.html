@@ -1,254 +1,31 @@
 <!DOCTYPE html>
-<!-- include jQuery -->
-<script src="vendor/jquery-2.2.3.min.js"></script>
-<!-- include threex planets -->
-<script src='vendor/three.min.js'></script>
-<script src='vendor/threex.planets.js'></script>
-<script src='vendor/threex.atmospherematerial.js'></script>
-<!-- include for threex.glowdatgui -->
-<script src='vendor/dat.gui.min.js'></script>
-<script src="vendor/threex.atmospheredatgui.js"></script>
-<!-- include for satellite.ks -->
-<script src="vendor/satellite.min.js"></script>
-<script src="vendor/OrbitControls.js"></script>
+<html>
+<head>
+  <link rel="stylesheet" href="scripts/styles/main.css">
+  <!-- include jQuery -->
+  <script src="vendor/jquery-2.2.3.min.js"></script>
+  <!-- include threex planets -->
+  <script src='vendor/three.min.js'></script>
+  <script src='vendor/threex.planets.js'></script>
+  <script src='vendor/threex.atmospherematerial.js'></script>
+  <!-- include for threex.glowdatgui -->
+  <script src='vendor/dat.gui.min.js'></script>
+  <script src="vendor/threex.atmospheredatgui.js"></script>
+  <!-- include for satellite.ks -->
+  <script src="vendor/satellite.min.js"></script>
+  <script src="vendor/OrbitControls.js"></script>
 
-<!-- Satellites -->
-<script src="scripts/utils.js"></script>
-<script src="scripts/satellites.js"></script>
-<script src="scripts/cubesatparser.js"></script>
-<body style='margin: 0px; background-color: #000000; overflow: hidden;'>
-<div id="time" style="position:fixed; top: 0; color: white;">
-	
-</div>
-<script>
-	THREEx.Planets.baseURL = 'assets/'
-	var renderer	= new THREE.WebGLRenderer({
-		antialias	: true
-	});
-	renderer.setSize( window.innerWidth * 0.67, window.innerHeight );
-	document.body.appendChild( renderer.domElement );
-	renderer.shadowMapEnabled	= true
-	
-	var onRenderFcts= [];
-	var scene	= new THREE.Scene();
-	var camera	= new THREE.PerspectiveCamera(45, (window.innerWidth * 0.67) / window.innerHeight, 0.01, 100 );
-	camera.position.y = 1.8;
-	camera.up.set(0, 0, 1);
-	console.log(camera);
-	var light	= new THREE.AmbientLight( 0x222222 )
-	scene.add( light )
+  <!-- Satellites -->
+  <script src="scripts/utils.js"></script>
+  <script src="scripts/satellites.js"></script>
+  <script src="scripts/cubesatparser.js"></script>
+  <script src="scripts/initialize.js"></script>
+</head>
+<body>
+  <div class="interface">
+  </div>
 
-	var light	= new THREE.DirectionalLight( 0xffffff, 1 )
-	light.position.set(5,5,5)
-	scene.add( light )
-	light.castShadow	= true
-	light.shadowCameraNear	= 0.01
-	light.shadowCameraFar	= 15
-	light.shadowCameraFov	= 45
-
-	light.shadowCameraLeft	= -1
-	light.shadowCameraRight	=  1
-	light.shadowCameraTop	=  1
-	light.shadowCameraBottom= -1
-	// light.shadowCameraVisible	= true
-
-	light.shadowBias	= 0.001
-	light.shadowDarkness	= 0.2
-
-	light.shadowMapWidth	= 1024
-	light.shadowMapHeight	= 1024
-
-	var light	= new THREE.AmbientLight( 0x222222 )
-	scene.add( light )
-
-	var light	= new THREE.DirectionalLight( 0xffffff, 1 )
-	light.position.set(-5,-5,-5)
-	scene.add( light )
-	light.castShadow	= true
-	light.shadowCameraNear	= 0.01
-	light.shadowCameraFar	= 15
-	light.shadowCameraFov	= 45
-
-	light.shadowCameraLeft	= -1
-	light.shadowCameraRight	=  1
-	light.shadowCameraTop	=  1
-	light.shadowCameraBottom= -1
-	// light.shadowCameraVisible	= true
-
-	light.shadowBias	= 0.001
-	light.shadowDarkness	= 0.2
-
-	light.shadowMapWidth	= 1024
-	light.shadowMapHeight	= 1024
-	
-	//////////////////////////////////////////////////////////////////////////////////
-	//		added starfield							//
-	//////////////////////////////////////////////////////////////////////////////////
-	
-	var starSphere	= THREEx.Planets.createStarfield()
-	scene.add(starSphere)
-
-	//////////////////////////////////////////////////////////////////////////////////
-	//		add an object and make it move					//
-	//////////////////////////////////////////////////////////////////////////////////
-
-	// var datGUI	= new dat.GUI()
-    
-	var containerEarth	= new THREE.Object3D()
-	//containerEarth.rotateZ(-23.4 * Math.PI/180)
-	containerEarth.position.z	= 0
-	scene.add(containerEarth)
-
-	var earthMesh	= THREEx.Planets.createEarth()
-	earthMesh.scale
-	earthMesh.receiveShadow	= true
-	earthMesh.castShadow	= true
-	containerEarth.add(earthMesh)
-
-	// Realign earth
-	earthMesh.rotateX(90 * Math.PI/180);
-
-	
-	// onRenderFcts.push(function(delta, now)
-	// {
-	// 	earthMesh.rotation.y += 1/32 * delta;		
-	// })
-
-	var geometry	= new THREE.SphereGeometry(0.5, 32, 32)
-	var material	= THREEx.createAtmosphereMaterial()
-	material.uniforms.glowColor.value.set(0x00b3ff)
-	material.uniforms.coeficient.value	= 0.8
-	material.uniforms.power.value		= 2.0
-	var mesh	= new THREE.Mesh(geometry, material );
-	mesh.scale.multiplyScalar(1.01);
-	containerEarth.add( mesh );
-	// new THREEx.addAtmosphereMaterial2DatGui(material, datGUI)
-
-	var geometry	= new THREE.SphereGeometry(0.5, 32, 32)
-	var material	= THREEx.createAtmosphereMaterial()
-	material.side	= THREE.BackSide
-	material.uniforms.glowColor.value.set(0x00b3ff)
-	material.uniforms.coeficient.value	= 0.5
-	material.uniforms.power.value		= 4.0
-	var mesh	= new THREE.Mesh(geometry, material );
-	mesh.scale.multiplyScalar(1.15);
-	containerEarth.add( mesh );
-	// new THREEx.addAtmosphereMaterial2DatGui(material, datGUI)
-
-	var earthCloud	= THREEx.Planets.createEarthCloud()
-	earthCloud.receiveShadow	= true
-	earthCloud.castShadow	= true
-	containerEarth.add(earthCloud)
-	// onRenderFcts.push(function(delta, now){
-	// 	earthCloud.rotation.y += 1/8 * delta;		
-	// })
-
-	var zlineMaterial = new THREE.LineBasicMaterial(
-	{
-		color: 0xffffff
-	});
-	var zLineGeometry = new THREE.Geometry();
-	zLineGeometry.vertices.push(new THREE.Vector3(0, 0, 2));
-	zLineGeometry.vertices.push(new THREE.Vector3(0, 0, 0));
-
-	var zLine = new THREE.Line(zLineGeometry, zlineMaterial);
-	//scene.add(zLine);
-
-	var xlineMaterial = new THREE.LineBasicMaterial(
-	{
-		color: 0xff0000
-	});
-	var xLineGeometry = new THREE.Geometry();
-	xLineGeometry.vertices.push(new THREE.Vector3(2, 0, 0));
-	xLineGeometry.vertices.push(new THREE.Vector3(0, 0, 0));
-
-	var xLine = new THREE.Line(xLineGeometry, xlineMaterial);
-	//scene.add(xLine);
-
-	var coverageConeGeometry = new THREE.CylinderGeometry(0.01, 0.4, 0.5, 15);
-	var coverageConeMaterial = new THREE.MeshBasicMaterial({color: 0x00ffff, transparent: true, opacity: 0.5});
-	//////////////////////////////////////////////////////////////////////////////////
-	//		Camera Controls							//
-	//////////////////////////////////////////////////////////////////////////////////
-	var controls = new THREE.OrbitControls(camera);
-
-	//££££££££ Satellites //
-	var earthDiameter = 6371 * 2;
-	var scaleFactor = earthDiameter;
-	var geometry = new THREE.SphereGeometry( 0.01, 32, 32 );
-	var material = new THREE.MeshBasicMaterial( {color: 0xffff00} );
-
-	var deg2rad = Math.PI / 180;
-	// Set the Observer to London in radians
-    var observerGd = {
-        longitude: -0.1278 * deg2rad,
-        latitude: 51.5074 * deg2rad,
-        height: 0.035
-    };
-
-	// Dynamic satellite //
-    var meshes = [];
-    $.ajax({
-		url: "assets/cubesat.txt"
-	}).done(function(text) {
-		var satRecs = getSatelliteRecords(text);
-
-		meshes = Object.keys(satRecs).map(function(name) 
-		{
-			var rec = satRecs[name];
-
-			// var position = satellite.sgp4(rec, 0).position;
-			// var positionEcf = satellite.eciToEcf(position, 0);
-
-			// var lookAngle = satellite.ecfToLookAngles(observerGd, positionEcf);
-			// console.log(lookAngle);
-
-			var mesh = new THREE.Mesh(geometry, material);
-			scene.add(mesh);
-			var coverageConeCylinder = new THREE.Mesh(coverageConeGeometry, coverageConeMaterial);
-			scene.add(coverageConeCylinder);
-			return new SatelliteMesh(name, rec, mesh, coverageConeCylinder);
-		});
-
-		//meshes = [meshes[0]];
-
-	})
-
-    
-	//////////////////////////////////////////////////////////////////////////////////
-	//		render the scene						//
-	//////////////////////////////////////////////////////////////////////////////////
-	onRenderFcts.push(function(){
-		renderer.render( scene, camera );		
-	})
-	var now = new Date();
-
-	var nowSeconds = now.getUTCSeconds();
-	//////////////////////////////////////////////////////////////////////////////////
-	//		loop runner							//
-	//////////////////////////////////////////////////////////////////////////////////
-	var lastTimeMsec= null
-	requestAnimationFrame(function animate(nowMsec){
-		// keep looping
-		requestAnimationFrame( animate );
-		// measure time
-		lastTimeMsec	= lastTimeMsec || nowMsec-1000/60
-		var deltaMsec	= Math.min(200, nowMsec - lastTimeMsec)
-		lastTimeMsec	= nowMsec
-		// call each update function
-		onRenderFcts.forEach(function(onRenderFct){
-			onRenderFct(deltaMsec/1000, nowMsec/1000)
-		})
-
-		now.setSeconds(now.getSeconds() + 5);
-
-		document.getElementById("time").innerText = now.toUTCString();
-
-		meshes.forEach(function(mesh) {
-			mesh.updatePosition(now);
-		});
-
-		controls.update();
-	})
-
-</script></body>
+  <div class="earth"></div>
+  <script src="scripts/main.js"></script>
+</body>
+</html>

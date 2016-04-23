@@ -1,0 +1,23 @@
+html, body {
+  height: 100%;
+}
+
+body {
+  background-color: black;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+}
+
+.interface {
+  height: 100%;
+  background-color: white;
+  flex: 1;
+}
+
+.earth {
+  height: 100%;
+  flex: 2;
+}
