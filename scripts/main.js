@@ -142,6 +142,10 @@
         selectYears: 15 // Creates a dropdown of 15 years to control year
       });
 
+
+    $('.datepicker').on('close', function() {
+      console.log('This logs without opening!')
+    })
     // function updateReferenceTime() 
     // {
     //   picker.set('select', dateRef);
