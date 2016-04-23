@@ -102,11 +102,21 @@
         <label>Satellite</label>
       </div>
       <div class="input-field col s12 center">
-<a class="waves-effect waves-light btn-large"><i class="material-icons right">my_location</i>request</a>
+        <a class="waves-effect waves-light btn-large modal-trigger" href="#modal1"><i class="material-icons right">my_location</i>request</a>
       </div>
     </form>
 
     <div class="col s9 earth"></div>
+    <!-- Modal Structure -->
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h4>Satellite image received</h4>
+      <p></p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">CLOSE</a>
+    </div>
+  </div>
   </main>
 
   <!-- Compiled and minified JavaScript -->
@@ -114,6 +124,10 @@
   <script>
     $(document).ready(function() {
       $('select').material_select();
+    });
+    $(document).ready(function(){
+    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+    $('.modal-trigger').leanModal();
     });
   </script>
   <script src="scripts/main.js"></script>

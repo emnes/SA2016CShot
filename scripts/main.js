@@ -168,7 +168,10 @@
     updateSimulationTime();
     // updateReferenceTime();
 
-
+    function requestSatellite()
+    {
+      
+    }
 
     //////////////////////////////////////////////////////////////////////////////////
     //    loop runner             //
