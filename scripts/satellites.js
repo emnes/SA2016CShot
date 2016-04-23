@@ -3,11 +3,12 @@
 var earthDiameter = 6371 * 2;
 var scaleFactor = earthDiameter;
 
-function SatelliteMesh(name, satrecord, mesh)
+function SatelliteMesh(name, satrecord, mesh, coverageCone)
 {
 	this.name = name;
 	this.satrec = satrecord;
 	this.mesh = mesh;
+	this.coverageCone = coverageCone;
 }
 
 SatelliteMesh.prototype.updatePosition = function(time)
@@ -47,4 +48,13 @@ SatelliteMesh.prototype.updatePosition = function(time)
         latitudeStr  = satellite.degreesLat(positionGd.latitude);
 
 		this.mesh.position.set(satelliteX, satelliteY, satelliteZ);
+
+		var length = this.mesh.position.length();
+		var offsetLength = length - 0.25;
+		var scale = offsetLength / length;
+		this.coverageCone.position.set(scale * satelliteX, scale * satelliteY, scale * satelliteZ);
+		let facingAxis = this.mesh.position.clone().normalize();
+		this.coverageCone.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), facingAxis);
+
+
 }

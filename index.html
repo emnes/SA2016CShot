@@ -13,6 +13,7 @@
 <script src="vendor/OrbitControls.js"></script>
 
 <!-- Satellites -->
+<script src="scripts/utils.js"></script>
 <script src="scripts/satellites.js"></script>
 <script src="scripts/cubesatparser.js"></script>
 <body style='margin: 0px; background-color: #000000; overflow: hidden;'>
@@ -24,15 +25,16 @@
 	var renderer	= new THREE.WebGLRenderer({
 		antialias	: true
 	});
-	renderer.setSize( window.innerWidth, window.innerHeight );
+	renderer.setSize( window.innerWidth * 0.67, window.innerHeight );
 	document.body.appendChild( renderer.domElement );
 	renderer.shadowMapEnabled	= true
 	
 	var onRenderFcts= [];
 	var scene	= new THREE.Scene();
-	var camera	= new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.01, 100 );
-	camera.position.z = 1;
-
+	var camera	= new THREE.PerspectiveCamera(45, (window.innerWidth * 0.67) / window.innerHeight, 0.01, 100 );
+	camera.position.y = 1.8;
+	camera.up.set(0, 0, 1);
+	console.log(camera);
 	var light	= new THREE.AmbientLight( 0x222222 )
 	scene.add( light )
 
@@ -150,7 +152,7 @@
 	zLineGeometry.vertices.push(new THREE.Vector3(0, 0, 0));
 
 	var zLine = new THREE.Line(zLineGeometry, zlineMaterial);
-	scene.add(zLine);
+	//scene.add(zLine);
 
 	var xlineMaterial = new THREE.LineBasicMaterial(
 	{
@@ -161,8 +163,10 @@
 	xLineGeometry.vertices.push(new THREE.Vector3(0, 0, 0));
 
 	var xLine = new THREE.Line(xLineGeometry, xlineMaterial);
-	scene.add(xLine);
+	//scene.add(xLine);
 
+	var coverageConeGeometry = new THREE.CylinderGeometry(0.01, 0.4, 0.5, 15);
+	var coverageConeMaterial = new THREE.MeshBasicMaterial({color: 0x00ffff, transparent: true, opacity: 0.5});
 	//////////////////////////////////////////////////////////////////////////////////
 	//		Camera Controls							//
 	//////////////////////////////////////////////////////////////////////////////////
@@ -188,7 +192,6 @@
 		url: "assets/cubesat.txt"
 	}).done(function(text) {
 		var satRecs = getSatelliteRecords(text);
-		console.log(satRecs);
 
 		meshes = Object.keys(satRecs).map(function(name) 
 		{
@@ -200,13 +203,14 @@
 			// var lookAngle = satellite.ecfToLookAngles(observerGd, positionEcf);
 			// console.log(lookAngle);
 
-			var mesh = new THREE.Mesh( geometry, material );
-			scene.add( mesh );
-			return new SatelliteMesh(name, rec, mesh);
+			var mesh = new THREE.Mesh(geometry, material);
+			scene.add(mesh);
+			var coverageConeCylinder = new THREE.Mesh(coverageConeGeometry, coverageConeMaterial);
+			scene.add(coverageConeCylinder);
+			return new SatelliteMesh(name, rec, mesh, coverageConeCylinder);
 		});
 
-		meshes = [meshes[0]];
-		console.log(meshes);
+		//meshes = [meshes[0]];
 
 	})
 
@@ -236,7 +240,7 @@
 			onRenderFct(deltaMsec/1000, nowMsec/1000)
 		})
 
-		now.setSeconds(now.getSeconds());
+		now.setSeconds(now.getSeconds() + 5);
 
 		document.getElementById("time").innerText = now.toUTCString();
 

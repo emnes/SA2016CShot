@@ -3,7 +3,6 @@ function getSatelliteRecords(rawSatTLEs)
 	var lines = rawSatTLEs.split("\r");
 	var satRecs = {};
 
-	console.log(lines);
 	for (var i = 0; i < (lines.length-1); i+=3)
 	{
 		var tle1 = lines[i+1].trim(); 
