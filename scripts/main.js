@@ -8,56 +8,56 @@
   var scene = app.scene;
 
   //////////////////////////////////////////////////////////////////////////////////
-  //		added starfield							//
+  //    added starfield             //
   //////////////////////////////////////////////////////////////////////////////////
 
-  var starSphere	= THREEx.Planets.createStarfield();
+  var starSphere  = THREEx.Planets.createStarfield();
   scene.add(starSphere);
 
   //////////////////////////////////////////////////////////////////////////////////
-  //		add an object and make it move					//
+  //    add an object and make it move          //
   //////////////////////////////////////////////////////////////////////////////////
 
-  // var datGUI	= new dat.GUI()
+  // var datGUI = new dat.GUI()
 
   var containerEarth = new THREE.Object3D();
   //containerEarth.rotateZ(-23.4 * Math.PI/180)
-  containerEarth.position.z	= 0;
+  containerEarth.position.z = 0;
   scene.add(containerEarth);
 
   var earthMesh = THREEx.Planets.createEarth();
-  earthMesh.receiveShadow	= true;
-  earthMesh.castShadow	= true;
+  earthMesh.receiveShadow = true;
+  earthMesh.castShadow  = true;
   containerEarth.add(earthMesh);
 
   // Realign earth
   earthMesh.rotateX(90 * Math.PI/180);
 
 
-  var geometry	= new THREE.SphereGeometry(0.5, 32, 32);
-  var material	= THREEx.createAtmosphereMaterial();
+  var geometry  = new THREE.SphereGeometry(0.5, 32, 32);
+  var material  = THREEx.createAtmosphereMaterial();
   material.uniforms.glowColor.value.set(0x00b3ff);
   material.uniforms.coeficient.value = 0.8;
   material.uniforms.power.value = 2.0;
-  var mesh	= new THREE.Mesh(geometry, material );
+  var mesh  = new THREE.Mesh(geometry, material );
   mesh.scale.multiplyScalar(1.01);
   containerEarth.add( mesh );
   // new THREEx.addAtmosphereMaterial2DatGui(material, datGUI)
 
-  var geometry	= new THREE.SphereGeometry(0.5, 32, 32);
-  var material	= THREEx.createAtmosphereMaterial();
-  material.side	= THREE.BackSide;
+  var geometry  = new THREE.SphereGeometry(0.5, 32, 32);
+  var material  = THREEx.createAtmosphereMaterial();
+  material.side = THREE.BackSide;
   material.uniforms.glowColor.value.set(0x00b3ff);
-  material.uniforms.coeficient.value	= 0.5;
-  material.uniforms.power.value		= 4.0;
-  var mesh	= new THREE.Mesh(geometry, material );
+  material.uniforms.coeficient.value  = 0.5;
+  material.uniforms.power.value   = 4.0;
+  var mesh  = new THREE.Mesh(geometry, material );
   mesh.scale.multiplyScalar(1.15);
   containerEarth.add( mesh );
   // new THREEx.addAtmosphereMaterial2DatGui(material, datGUI)
 
-  var earthCloud	= THREEx.Planets.createEarthCloud();
-  earthCloud.receiveShadow	= true;
-  earthCloud.castShadow	= true;
+  var earthCloud  = THREEx.Planets.createEarthCloud();
+  earthCloud.receiveShadow  = true;
+  earthCloud.castShadow = true;
   containerEarth.add(earthCloud);
 
   var zlineMaterial = new THREE.LineBasicMaterial({
@@ -88,7 +88,7 @@
       opacity: 0.5
     });
     //////////////////////////////////////////////////////////////////////////////////
-    //		Camera Controls							//
+    //    Camera Controls             //
     //////////////////////////////////////////////////////////////////////////////////
 
     //££££££££ Satellites //
@@ -137,11 +137,15 @@
 
     var $referenceDate = $('#date-picker').pickadate();
     var $simulationTime = $('#simulation-time');
-    var picker = $referenceDate.pickadate('picker');
+    $('.datepicker').pickadate({
+        selectMonths: true, // Creates a dropdown to control month
+        selectYears: 15 // Creates a dropdown of 15 years to control year
+      });
 
-    function updateReferenceTime() {
-      picker.set('select', dateRef);
-    }
+    // function updateReferenceTime() 
+    // {
+    //   picker.set('select', dateRef);
+    // }
 
     function updateSimulationTime() {
       time.setTime(dateRef.getTime() + simulationOffset);
@@ -158,10 +162,12 @@
     });
 
     updateSimulationTime();
-    updateReferenceTime();
+    // updateReferenceTime();
+
+
 
     //////////////////////////////////////////////////////////////////////////////////
-    //		loop runner							//
+    //    loop runner             //
     //////////////////////////////////////////////////////////////////////////////////
     var lastTimeMsec= null;
     requestAnimationFrame(function animate(nowMsec){
@@ -175,7 +181,7 @@
       renderer.render( scene, camera );
 
       dateRef.setUTCSeconds(dateRef.getUTCSeconds() + 5);
-      updateReferenceTime();
+      // updateReferenceTime();
       updateSimulationTime();
 
       meshes.forEach(function (satMesh) {
