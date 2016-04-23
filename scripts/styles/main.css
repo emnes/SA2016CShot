@@ -7,17 +7,26 @@ body {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  display: flex;
-  flex-direction: row;
+}
+
+main {
+  height: 100%;
+}
+
+.brand-logo {
+  display: block;
+  height: 100%;
+}
+
+img.brand-image.responsive-img {
+  height: 100%;
 }
 
 .interface {
   height: 100%;
   background-color: white;
-  flex: 1;
 }
 
 .earth {
   height: 100%;
-  flex: 2;
 }

@@ -20,12 +20,60 @@
   <script src="scripts/satellites.js"></script>
   <script src="scripts/cubesatparser.js"></script>
   <script src="scripts/initialize.js"></script>
+
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
-  <div class="interface">
-  </div>
+  <nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo center">
+        <img class="brand-image responsive-img" src="assets/images/cubeshot_logo.png" alt="CubeShot">
+      </a>
+    </div>
+  </nav>
 
-  <div class="earth"></div>
+  <main class="row">
+    <form class="col s3 interface" action="">
+      <div class="input-field col s12">
+        <i class="material-icons prefix">search</i>
+        <input id="address-search" type="text" class="validate" />
+        <label for="address-search">Search</label>
+      </div>
+
+      <div class="input-field col s12">
+        <label for="date-picker">Date</label>
+        <input id="date-picker" type="date" class="datepicker">
+
+        <div class="range-field">
+          <input id="detailed-time" type="range" min="-800" max="800" value="0"/>
+        </div>
+
+        <p id="simulation-time"></p>
+      </div>
+
+      <div class="input-field col s12">
+        <select multiple>
+          <option value="" disabled selected>Choose your option</option>
+          <option value="1">Option 1</option>
+          <option value="2">Option 2</option>
+          <option value="3">Option 3</option>
+        </select>
+        <label>Operator</label>
+      </div>
+    </form>
+
+    <div class="col s9 earth"></div>
+  </main>
+
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      $('select').material_select();
+    });
+  </script>
   <script src="scripts/main.js"></script>
 </body>
 </html>
