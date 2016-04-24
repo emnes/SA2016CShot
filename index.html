@@ -49,7 +49,6 @@
         <div class="range-field">
           <input id="detailed-time" type="range" min="-100" max="100" value="0"/>
         </div>
-
         <p id="simulation-time"></p>
       </div>
 
@@ -105,14 +104,6 @@
         </select>
               <label>Operator</label>
       </div>
-      <div class="input-field col s12">
-        <select multiple>
-          <option value="" disabled selected> Choose satellite </option>
-          <option value="1">EYESAT-1</option>
-
-        </select>
-        <label>Satellite</label>
-      </div>
       <div class="input-field col s12 center">
         <a class="waves-effect waves-light btn-large modal-trigger" href="#modal1"><i class="material-icons right">my_location</i>request</a>
       </div>
@@ -122,17 +113,17 @@
     <!-- Request made modal structure -->
   <div id="modal1" class="modal">
     <div class="modal-content">
-      <h4>Satellite image received</h4>
+      <h4>Satellite request</h4>
       <p>
         <div class="col s4">Operator</div>
         <div class="col s4">Price</div>
+        <div class="col s4"> </div>
 
       </p>
       <div class="col s4">Planet Labs</div>
       <div class="col s4">50</div>
 
-        <a id="search-button" class="waves-effect waves-light btn">BUY</a>
-  
+      <a id="search-button" class="waves-effect waves-light btn"><i class="material-icons right">shopping_cart</i>book</a>
     </div>
     <div class="modal-footer">
       <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">CLOSE</a>

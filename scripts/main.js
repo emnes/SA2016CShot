@@ -180,7 +180,7 @@
       lastTimeMsec = nowMsec;
       // call each update function
       renderer.render( scene, camera );
-
+      //dateRef = new Date();
       dateRef.setUTCSeconds(dateRef.getUTCSeconds() + 5);
       // updateReferenceTime();
       updateSimulationTime();
