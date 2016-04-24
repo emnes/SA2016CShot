@@ -96,7 +96,7 @@
     var earthDiameter = 6371 * 2;
     var scaleFactor = earthDiameter;
     var geometry = new THREE.SphereGeometry(0.01, 10, 10);
-    var material = new THREE.MeshBasicMaterial( {color: 0xffff00} );
+    var material = new THREE.MeshLambertMaterial( {color: 0xffff00} );
 
     var deg2rad = Math.PI / 180;
 
@@ -226,7 +226,6 @@
     $autorun.on('change', function () {
       runSim = $(this).prop('checked');
     });
-
 
     //////////////////////////////////////////////////////////////////////////////////
     //    loop runner             //
