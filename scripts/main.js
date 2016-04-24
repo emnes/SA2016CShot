@@ -124,30 +124,33 @@
 
     var $referenceDate = $('#date-picker').pickadate();
     var $simulationTime = $('#simulation-time');
+    var picker = $referenceDate.pickadate('picker');
     var $cameraPositionx = $('#camera-positionx');
     var $cameraPositiony = $('#camera-positiony');
     var $cameraPositionz = $('#camera-positionz');
 
-    $('.datepicker').pickadate({
-        selectMonths: true, // Creates a dropdown to control month
-        selectYears: 15 // Creates a dropdown of 15 years to control year
-      });
-
-
- 
-    // function updateReferenceTime() 
-    // {
-    //   picker.set('select', dateRef);
-    // }
+    var simDate = new Date();
+    simDate.setUTCFullYear(dateRef.getUTCFullYear() + 1); // artificial offset
+    simDate.setUTCMonth(dateRef.getUTCMonth());
+    simDate.setUTCDate(dateRef.getUTCDate());
+    function updateReferenceTime() {
+      if (simDate.getUTCDate() !== dateRef.getUTCDate() ||
+          simDate.getUTCMonth() !== dateRef.getUTCMonth() ||
+          simDate.getUTCFullYear() !== dateRef.getUTCFullYear()) {
+        picker.set('select', dateRef);
+        simDate.setTime(dateRef.getTime());
+      }
+    }
 
     function updateSimulationTime() {
       time.setTime(dateRef.getTime() + simulationOffset);
       $simulationTime.text(time.toUTCString());
     }
 
-    // $referenceDate.on('change', function () {
-    //   console.log(1, $(this).val());
-    // });
+    $referenceDate.on('change', function () {
+      dateRef.setTime(Date.parse($(this).val()));
+      dateRef.setHours(dateRef.getHours() + 2); // correction for UTC
+    });
 
     $('#detailed-time').on('input', function () {
       simulationOffset = parseInt($(this).val()) * 60 * 1000;
@@ -155,7 +158,7 @@
     });
 
     updateSimulationTime();
-    // updateReferenceTime();
+    updateReferenceTime();
 
     $("#search-button").click(function(){
 
