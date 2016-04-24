@@ -37,9 +37,9 @@
   <main class="row">
     <form class="col s3 interface" action="">
       <div class="input-field col s12">
-        <i class="material-icons prefix">search</i>
         <input id="address-search" type="text" class="validate" />
-        <label for="address-search">Search</label>
+        <label for="address-search">Search location</label>
+        <a id="search-button" class="waves-effect waves-light btn"><i class="material-icons">search</i></a>
       </div>
 
       <div class="input-field col s12">
@@ -55,6 +55,18 @@
 
       <div class="input-field col s12">
         <select>
+          <option value="" disabled selected> Choose service </option>
+          <option value="1">Imagery</option>
+          <option value="2">Weather</option>
+          <option value="3">Internet Access</option>
+          <option value="4">Tracking</option>
+
+        </select>
+        <label>Service</label>
+      </div>
+
+      <div class="input-field col s12">
+        <select multiple>
           <option value="" disabled selected> Choose operator </option>
           <option value="1">Aerospace Corporation</option>
           <option value="2">AggieSat Lab</option>
@@ -94,7 +106,7 @@
               <label>Operator</label>
       </div>
       <div class="input-field col s12">
-        <select>
+        <select multiple>
           <option value="" disabled selected> Choose satellite </option>
           <option value="1">EYESAT-1</option>
 
@@ -107,11 +119,20 @@
     </form>
 
     <div class="col s9 earth"></div>
-    <!-- Modal Structure -->
+    <!-- Request made modal structure -->
   <div id="modal1" class="modal">
     <div class="modal-content">
       <h4>Satellite image received</h4>
-      <p></p>
+      <p>
+        <div class="col s4">Operator</div>
+        <div class="col s4">Price</div>
+
+      </p>
+      <div class="col s4">Planet Labs</div>
+      <div class="col s4">50</div>
+
+        <a id="search-button" class="waves-effect waves-light btn">BUY</a>
+  
     </div>
     <div class="modal-footer">
       <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">CLOSE</a>

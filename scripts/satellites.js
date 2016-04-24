@@ -44,9 +44,24 @@ window.SatelliteMesh = (function() {
     var length = this.mesh.position.length();
     var offsetLength = length - 0.25;
     var scale = offsetLength / length;
-    this.coverageCone.position.set(scale * satelliteX, scale * satelliteY, scale * satelliteZ);
+    this.coverageCone.position.set((scale * satelliteX), (scale * satelliteY), (scale * satelliteZ));
     var facingAxis = this.mesh.position.clone().normalize();
     this.coverageCone.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), facingAxis);
+
+    var deg2rad = Math.PI / 180;
+    // Set the Observer to London in radians
+    var observerGd = {
+      longitude: -0.1278 * deg2rad,
+      latitude: 51.5074 * deg2rad,
+      height: 0.035
+    };
+
+    // field of view of the satellite
+    // var lookAngle = satellite.ecfToLookAngles(observerGd, positionEcf);
+    // var fieldOfView = lookAngle.rangeSat / scaleFactor;
+    
+    // this.coverageCone.geometry = new THREE.CylinderGeometry(0.01, fieldOfView, 0.5, 7);
+    // this.coverageCone.geometry.verticesNeedUpdate = true;
   };
 
   return SatelliteMesh;

@@ -81,11 +81,11 @@
     var xLine = new THREE.Line(xLineGeometry, xlineMaterial);
     //scene.add(xLine);
 
-    var coverageConeGeometry = new THREE.CylinderGeometry(0.01, 0.4, 0.5, 10);
+    var coverageConeGeometry = new THREE.CylinderGeometry(0.01, 0.4, 0.5, 7);
     var coverageConeMaterial = new THREE.MeshBasicMaterial({
       color: 0x00ffff,
       transparent: true,
-      opacity: 0.5
+      opacity: 0.3
     });
     //////////////////////////////////////////////////////////////////////////////////
     //    Camera Controls             //
@@ -98,12 +98,6 @@
     var material = new THREE.MeshBasicMaterial( {color: 0xffff00} );
 
     var deg2rad = Math.PI / 180;
-    // Set the Observer to London in radians
-    var observerGd = {
-      longitude: -0.1278 * deg2rad,
-      latitude: 51.5074 * deg2rad,
-      height: 0.035
-    };
 
     // Dynamic satellite //
     var meshes = [];
@@ -114,13 +108,6 @@
 
       meshes = Object.keys(satRecs).map(function(name) {
         var rec = satRecs[name];
-
-        // var position = satellite.sgp4(rec, 0).position;
-        // var positionEcf = satellite.eciToEcf(position, 0);
-
-        // var lookAngle = satellite.ecfToLookAngles(observerGd, positionEcf);
-        // console.log(lookAngle);
-
         var mesh = new THREE.Mesh(geometry, material);
         scene.add(mesh);
         var coverageConeCylinder = new THREE.Mesh(coverageConeGeometry, coverageConeMaterial);
@@ -137,15 +124,17 @@
 
     var $referenceDate = $('#date-picker').pickadate();
     var $simulationTime = $('#simulation-time');
+    var $cameraPositionx = $('#camera-positionx');
+    var $cameraPositiony = $('#camera-positiony');
+    var $cameraPositionz = $('#camera-positionz');
+
     $('.datepicker').pickadate({
         selectMonths: true, // Creates a dropdown to control month
         selectYears: 15 // Creates a dropdown of 15 years to control year
       });
 
 
-    $('.datepicker').on('close', function() {
-      console.log('This logs without opening!')
-    })
+ 
     // function updateReferenceTime() 
     // {
     //   picker.set('select', dateRef);
@@ -168,10 +157,15 @@
     updateSimulationTime();
     // updateReferenceTime();
 
-    function requestSatellite()
-    {
-      
-    }
+    $("#search-button").click(function(){
+
+      // United kingdom camera
+      camera.position.x = 0.4685943882663952;
+      camera.position.y = 0;
+      camera.position.z = 0.6452746603353687;
+
+    });
+
 
     //////////////////////////////////////////////////////////////////////////////////
     //    loop runner             //
@@ -194,7 +188,6 @@
       meshes.forEach(function (satMesh) {
         satMesh.updatePosition(time);
       });
-
       controls.update();
     })
 })();
