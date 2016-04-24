@@ -102,6 +102,7 @@
 
     // Dynamic satellite //
     var meshes = [];
+    var meshesAll = meshes;
     $.ajax({
       url: "assets/cubesat.txt"
     }).done(function(text) {
@@ -115,7 +116,8 @@
         scene.add(coverageConeCylinder);
         return new SatelliteMesh(name, rec, mesh, coverageConeCylinder);
       });
-      //meshes = [meshes[0]];
+      meshesAll = meshes;
+      // meshes = [meshes[0]];
     })
 
 
@@ -172,32 +174,18 @@
     });
 
     var showAll = true;
-    var meshesAll = meshes;
     $("#select-operator").change(function ()
     {
               // hide all satellites except one
         meshes.forEach(function (satMesh)
         {
-          if($.inArray( satMesh, meshes))
-          {
-            scene.remove(satMesh.mesh);
-            scene.remove(satMesh.coverageCone);
-          }
+          scene.remove(satMesh.mesh);
+          scene.remove(satMesh.coverageCone);
         });
 
       if (showAll == true)
       {
         var meshesNew = meshes;
-
-        // hide all satellites except one
-        meshes.forEach(function (satMesh)
-        {
-          if($.inArray( satMesh, meshes))
-          {
-            scene.remove(satMesh.mesh);
-            scene.remove(satMesh.coverageCone);
-          }
-        });
 
         meshes = [meshesNew[91], meshesNew[92], meshesNew[93], meshesNew[94], meshesNew[95], meshesNew[96],meshesNew[97], meshesNew[98], meshesNew[99]];
         meshes.forEach(function (satMesh)
@@ -225,6 +213,13 @@
     $autorun.prop('checked', runSim);
     $autorun.on('change', function () {
       runSim = $(this).prop('checked');
+    });
+
+    var mouseX = -1000;
+    var mouseY = -1000;
+    $simulationRendering.on('mousemove', function (event) {
+      mouseX = event.pageX;
+      mouseY = event.pageY;
     });
 
     //////////////////////////////////////////////////////////////////////////////////
