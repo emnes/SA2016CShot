@@ -1,7 +1,8 @@
 (function() {
   'use strict';
 
-  var app = initialize($('.earth'));
+  var $simulationRendering = $('.earth');
+  var app = initialize($simulationRendering);
   var renderer = app.renderer;
   var camera = app.camera;
   var controls = app.controls;
@@ -81,7 +82,7 @@
     var xLine = new THREE.Line(xLineGeometry, xlineMaterial);
     //scene.add(xLine);
 
-    var coverageConeGeometry = new THREE.CylinderGeometry(0.01, 0.4, 0.5, 7);
+    var coverageConeGeometry = new THREE.CylinderGeometry(0.01, 0.24, 0.3, 7);
     var coverageConeMaterial = new THREE.MeshBasicMaterial({
       color: 0x00ffff,
       transparent: true,
@@ -128,6 +129,7 @@
     var $cameraPositionx = $('#camera-positionx');
     var $cameraPositiony = $('#camera-positiony');
     var $cameraPositionz = $('#camera-positionz');
+    var $autorun = $('#autorun');
 
     var simDate = new Date();
     simDate.setUTCFullYear(dateRef.getUTCFullYear() + 1); // artificial offset
@@ -168,6 +170,7 @@
       camera.position.z = 0.6452746603353687;
 
     });
+
     var showAll = true;
     var meshesAll = meshes;
     $("#select-operator").change(function ()
@@ -217,6 +220,14 @@
 
       console.log(showAll);
     });
+
+    var runSim = true;
+    $autorun.prop('checked', runSim);
+    $autorun.on('change', function () {
+      runSim = $(this).prop('checked');
+    });
+
+
     //////////////////////////////////////////////////////////////////////////////////
     //    loop runner             //
     //////////////////////////////////////////////////////////////////////////////////
@@ -230,14 +241,17 @@
       lastTimeMsec = nowMsec;
       // call each update function
       renderer.render( scene, camera );
-      //dateRef = new Date();
-      dateRef.setUTCSeconds(dateRef.getUTCSeconds() + 5);
-      // updateReferenceTime();
-      updateSimulationTime();
+
+      if (runSim) {
+        dateRef.setUTCSeconds(dateRef.getUTCSeconds() + 5);
+        // updateReferenceTime();
+        updateSimulationTime();
+      }
 
       meshes.forEach(function (satMesh) {
         satMesh.updatePosition(time);
       });
+
       controls.update();
     })
 })();

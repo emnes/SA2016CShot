@@ -42,7 +42,7 @@ window.SatelliteMesh = (function() {
     this.mesh.position.set(satelliteX, satelliteY, satelliteZ);
 
     var length = this.mesh.position.length();
-    var offsetLength = length - 0.25;
+    var offsetLength = length - 0.15;
     var scale = offsetLength / length;
     this.coverageCone.position.set((scale * satelliteX), (scale * satelliteY), (scale * satelliteZ));
     var facingAxis = this.mesh.position.clone().normalize();
