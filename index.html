@@ -38,23 +38,19 @@
 
   <main class="row">
     <form class="col s3 interface" action="">
-      <div class="row">
-        <div class="col s3">
-          <p> Autoplay</p>
-        </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <select>
+          <option value="" disabled selected> Choose service </option>
+          <option value="1">Imagery</option>
+          <option value="2">Weather</option>
+          <option value="3">Internet Access</option>
+          <option value="4">Tracking</option>
 
-        <div class="col s9 right">
-          <div class="input-field switch">
-            <label>
-              Off
-              <input id="autorun" type="checkbox">
-              <span class="lever"></span>
-              On
-            </label>
-          </div>
-        </div>
+        </select>
+        <label>Service</label>
       </div>
-
+    </div>
       <div class="row">
         <div class="input-field col s12">
           <input id="address-search" type="text" class="validate" />
@@ -75,18 +71,20 @@
           <p id="simulation-time"></p>
         </div>
       </div>
-
       <div class="row">
-        <div class="input-field col s12">
-          <select>
-            <option value="" disabled selected> Choose service </option>
-            <option value="1">Imagery</option>
-            <option value="2">Weather</option>
-            <option value="3">Internet Access</option>
-            <option value="4">Tracking</option>
+        <div class="col s3">
+          <p> Autoplay</p>
+        </div>
 
-          </select>
-          <label>Service</label>
+        <div class="col s9 right">
+          <div class="input-field switch">
+            <label>
+              Off
+              <input id="autorun" type="checkbox">
+              <span class="lever"></span>
+              On
+            </label>
+          </div>
         </div>
       </div>
 
@@ -151,21 +149,23 @@
   <div id="modal1" class="modal">
     <div class="modal-content">
       <h4>Satellite request</h4>
+      <div class="row">
       <p>
         <div class="col s4"><h5>Operator</h5></div>
         <div class="col s4"><h5>Price</h5></div>
         <div class="col s4"></div>
-        <br/>
-        <br/>
       </p>
+      </div>
+      <div class="row">
       <div class="col s4"><h6>Planet Labs</h6></div>
       <div class="col s4"><h6>&#163;50</h6></div>
       <a class="waves-effect waves-light btn" onClick="Materialize.toast('Request submitted', 4000)"><i class="material-icons right">shopping_cart</i>book</a>
+      </div>
+      <div class="row">
       <div class="col s4"><h6>Skybox (Terra Bella)</h6></div>
       <div class="col s4"><h6>&#163;340</h6></div>
       <a class="waves-effect waves-light btn" onClick="Materialize.toast('Request submitted', 4000)"><i class="material-icons right">shopping_cart</i>book</a>
-
-      <a id="search-button" class="waves-effect waves-light btn">BUY</a>
+      </div>
     </div>
     <div class="modal-footer">
       <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">CLOSE</a>
