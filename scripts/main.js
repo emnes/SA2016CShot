@@ -124,30 +124,33 @@
 
     var $referenceDate = $('#date-picker').pickadate();
     var $simulationTime = $('#simulation-time');
+    var picker = $referenceDate.pickadate('picker');
     var $cameraPositionx = $('#camera-positionx');
     var $cameraPositiony = $('#camera-positiony');
     var $cameraPositionz = $('#camera-positionz');
 
-    $('.datepicker').pickadate({
-        selectMonths: true, // Creates a dropdown to control month
-        selectYears: 15 // Creates a dropdown of 15 years to control year
-      });
-
-
- 
-    // function updateReferenceTime() 
-    // {
-    //   picker.set('select', dateRef);
-    // }
+    var simDate = new Date();
+    simDate.setUTCFullYear(dateRef.getUTCFullYear() + 1); // artificial offset
+    simDate.setUTCMonth(dateRef.getUTCMonth());
+    simDate.setUTCDate(dateRef.getUTCDate());
+    function updateReferenceTime() {
+      if (simDate.getUTCDate() !== dateRef.getUTCDate() ||
+          simDate.getUTCMonth() !== dateRef.getUTCMonth() ||
+          simDate.getUTCFullYear() !== dateRef.getUTCFullYear()) {
+        picker.set('select', dateRef);
+        simDate.setTime(dateRef.getTime());
+      }
+    }
 
     function updateSimulationTime() {
       time.setTime(dateRef.getTime() + simulationOffset);
       $simulationTime.text(time.toUTCString());
     }
 
-    // $referenceDate.on('change', function () {
-    //   console.log(1, $(this).val());
-    // });
+    $referenceDate.on('change', function () {
+      dateRef.setTime(Date.parse($(this).val()));
+      dateRef.setHours(dateRef.getHours() + 2); // correction for UTC
+    });
 
     $('#detailed-time').on('input', function () {
       simulationOffset = parseInt($(this).val()) * 60 * 1000;
@@ -155,7 +158,7 @@
     });
 
     updateSimulationTime();
-    // updateReferenceTime();
+    updateReferenceTime();
 
     $("#search-button").click(function(){
 
@@ -165,8 +168,55 @@
       camera.position.z = 0.6452746603353687;
 
     });
+    var showAll = true;
+    var meshesAll = meshes;
+    $("#select-operator").change(function ()
+    {
+              // hide all satellites except one
+        meshes.forEach(function (satMesh)
+        {
+          if($.inArray( satMesh, meshes))
+          {
+            scene.remove(satMesh.mesh);
+            scene.remove(satMesh.coverageCone);
+          }
+        });
 
+      if (showAll == true)
+      {
+        var meshesNew = meshes;
 
+        // hide all satellites except one
+        meshes.forEach(function (satMesh)
+        {
+          if($.inArray( satMesh, meshes))
+          {
+            scene.remove(satMesh.mesh);
+            scene.remove(satMesh.coverageCone);
+          }
+        });
+
+        meshes = [meshesNew[91], meshesNew[92], meshesNew[93], meshesNew[94], meshesNew[95], meshesNew[96],meshesNew[97], meshesNew[98], meshesNew[99]];
+        meshes.forEach(function (satMesh)
+        {
+          scene.add(satMesh.mesh);
+          scene.add(satMesh.coverageCone);
+        });
+        showAll = false;
+      }
+      else
+      {
+        meshes = meshesAll;
+        meshes.forEach(function (satMesh)
+        {
+          scene.add(satMesh.mesh);
+          scene.add(satMesh.coverageCone);
+        });
+        showAll = true;
+      } 
+
+      console.log(showAll);
+    });
     //////////////////////////////////////////////////////////////////////////////////
     //    loop runner             //
     //////////////////////////////////////////////////////////////////////////////////
