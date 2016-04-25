@@ -167,9 +167,9 @@
     $("#search-button").click(function(){
 
       // United kingdom camera
-      camera.position.x = 0.4685943882663952;
+      camera.position.x = 2 * 0.4685943882663952;
       camera.position.y = 0;
-      camera.position.z = 0.6452746603353687;
+      camera.position.z = 2 * 0.6452746603353687;
 
     });
 
