@@ -215,11 +215,11 @@ THREE.OrbitControls = function ( object, domElement ) {
 
 		// angle from z-axis around y-axis
 
-		var theta = Math.atan2( offset.x, offset.z );
+		var theta = Math.atan2( offset.x, offset.y );
 
-		// angle from y-axis
-
-		var phi = Math.atan2( Math.sqrt( offset.x * offset.x + offset.z * offset.z ), offset.y );
+    // NOTE: patch by Bryan, using the y-axis is incompatible with the model, so
+    // changing this to z-axis
+		var phi = Math.atan2( Math.sqrt( offset.x * offset.x + offset.y * offset.y ), offset.z );
 
 		if ( this.autoRotate ) {
 
@@ -227,7 +227,7 @@ THREE.OrbitControls = function ( object, domElement ) {
 
 		}
 
-		theta += thetaDelta;
+		theta -= thetaDelta;
 		phi += phiDelta;
 
 		// restrict phi to be between desired limits
@@ -245,8 +245,8 @@ THREE.OrbitControls = function ( object, domElement ) {
 		this.target.add( pan );
 
 		offset.x = radius * Math.sin( phi ) * Math.sin( theta );
-		offset.y = radius * Math.cos( phi );
-		offset.z = radius * Math.sin( phi ) * Math.cos( theta );
+		offset.y = radius * Math.sin( phi ) * Math.cos( theta );
+		offset.z = radius * Math.cos( phi );
 
 		position.copy( this.target ).add( offset );
 
