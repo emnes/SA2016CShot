@@ -39,41 +39,38 @@
   <main class="row">
     <form class="col s3 interface" action="">
     <div class="row">
-      <div class="input-field col s12">
+      <div class="input-field col s12" style="margin-top: 50px; margin-bottom:0px;">
         <select>
           <option value="" disabled selected> Choose service </option>
           <option value="1">Imagery</option>
           <option value="2">Weather</option>
           <option value="3">Internet Access</option>
           <option value="4">Tracking</option>
-
         </select>
         <label>Service</label>
       </div>
     </div>
       <div class="row">
         <div class="input-field col s12">
-          <input id="address-search" type="text" class="validate" />
+          <input id="address-search" type="text" class="validate" style="padding-top: 0px;"/>
           <label for="address-search">Search location</label>
           <a id="search-button" class="waves-effect waves-light btn"><i class="material-icons">search</i></a>
         </div>
       </div>
-
       <div class="row">
         <div class="input-field col s12">
           <label for="date-picker">Date</label>
           <input id="date-picker" type="date" class="datepicker">
-
           <div class="range-field">
             <input id="detailed-time" type="range" min="-100" max="100" value="0"/>
-          </div>
-
+          </div>  
           <p id="simulation-time"></p>
         </div>
+
       </div>
       <div class="row">
         <div class="col s3">
-          <p> Autoplay</p>
+          <p>Autoplay</p>
         </div>
 
         <div class="col s9 right">
@@ -150,11 +147,11 @@
     <div class="modal-content">
       <h4>Satellite request</h4>
       <div class="row">
-      <p>
+      <p>Upon booking, your request will be sent to the satellite operator and you will receive a confirmation via email.</p>
+      </div>
+      <div class="row">
         <div class="col s4"><h5>Operator</h5></div>
         <div class="col s4"><h5>Price</h5></div>
-        <div class="col s4"></div>
-      </p>
       </div>
       <div class="row">
       <div class="col s4"><h6>Planet Labs</h6></div>
