@@ -19,6 +19,12 @@ main {
   height: 100%;
 }
 
+#play {
+  position: fixed;
+  right: 8px;
+  bottom: 8px;
+}
+
 img.brand-image.responsive-img {
   height: 100%;
 }

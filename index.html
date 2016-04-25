@@ -38,18 +38,24 @@
 
   <main class="row">
     <form class="col s3 interface" action="">
-    <div class="row">
+      <div class="row">
       <div class="input-field col s12" style="margin-top: 50px; margin-bottom:0px;">
-        <select>
-          <option value="" disabled selected> Choose service </option>
-          <option value="1">Imagery</option>
-          <option value="2">Weather</option>
-          <option value="3">Internet Access</option>
-          <option value="4">Tracking</option>
-        </select>
-        <label>Service</label>
+          <select>
+            <option value="" disabled selected> Choose service </option>
+            <option value="1">Imagery</option>
+            <option value="2">Weather</option>
+            <option value="3">Internet Access</option>
+            <option value="4">Tracking</option>
+
+          </select>
+          <label>Service</label>
+        </div>
       </div>
-    </div>
+
+      <a id="play" href="javascript:void(0)" class="btn-floating btn-large waves-effect waves-light red">
+        <i class="material-icons">pause</i>
+      </a>
+
       <div class="row">
         <div class="input-field col s12">
           <input id="address-search" type="text" class="validate" style="padding-top: 0px;"/>

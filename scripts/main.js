@@ -131,7 +131,7 @@
     var $cameraPositionx = $('#camera-positionx');
     var $cameraPositiony = $('#camera-positiony');
     var $cameraPositionz = $('#camera-positionz');
-    var $autorun = $('#autorun');
+    var $play = $('#play');
 
     var simDate = new Date();
     simDate.setUTCFullYear(dateRef.getUTCFullYear() + 1); // artificial offset
@@ -210,9 +210,13 @@
     });
 
     var runSim = true;
-    $autorun.prop('checked', runSim);
-    $autorun.on('change', function () {
-      runSim = $(this).prop('checked');
+    $play.on('click', function () {
+      runSim = ($play.find('.material-icons').text() !== 'pause');
+      if (runSim) {
+        $play.find('.material-icons').text('pause');
+      } else {
+        $play.find('.material-icons').text('play_arrow');
+      }
     });
 
     var mouseX = -1000;
