@@ -40,9 +40,9 @@
     <form class="col s3 interface" action="">
       <div class="row" style="margin-bottom:0;margin-top:24px">
         <div class="input-field col s12">
-          <select>
+          <select name="service" id="service">
             <option value="" disabled selected> Choose service </option>
-            <option value="1">Imagery</option>
+            <option name="imagery" value="imagery">Imagery</option>
             <option value="2">Weather</option>
             <option value="3">Internet Access</option>
             <option value="4">Tracking</option>
@@ -51,6 +51,19 @@
           <label>Service</label>
         </div>
       </div>
+
+      <div class="row" id="row_quality" style="padding-top:0;margin-bottom:0;margin-top:5px">
+        <div id="select-image-quality" class="input-field col s12">
+          <select>
+            <option value="" disabled selected> Choose quality </option>
+            <option value="1">Low</option>
+            <option value="2">Medium</option>
+            <option value="3">High</option>
+          </select>
+          <label>Image Quality</label>
+        </div>
+      </div>
+
 
       <div class="row">
         <div class="input-field col s12">
@@ -170,6 +183,16 @@
     $(document).ready(function(){
     // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
     $('.modal-trigger').leanModal();
+    });
+    $(function() {
+        $('#row_quality').hide(); 
+        $('#service').change(function(){
+            if($('#service').val() == 'imagery') {
+                $('#row_quality').show(); 
+            } else {
+                $('#row_quality').hide(); 
+            } 
+        });
     });
   </script>
   <script src="scripts/main.js"></script>
