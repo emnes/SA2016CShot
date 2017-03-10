@@ -3,6 +3,8 @@ Made by Guillaume Marrakchi, Bryan Yap, Mansoor Shar and Mazhar Shar.
 
 See a demo of the app working [here](https://emnes.github.io/SpaceApps2016/).
 
+We received a [Global Nomination](https://2016.spaceappschallenge.org/challenges/earth/geotagging-space-and-aviation/projects/cubeshot) and [Kennedy Space Center recognised us as the winner in the Geotagging Space and Aviation category](http://spaceappsksc.tumblr.com/post/146260014284/winners-of-ksc-space-apps-challenges-for-2016)! :)
+
 # Overview
 
 CubeShot applies the sharing economy concept to space asset management, providing seamless access to satellite resources. We help match a user's needs with the available resources of satellite operators with the goal of democratizing access to space.
